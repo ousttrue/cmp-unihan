@@ -3,7 +3,7 @@ local source = {}
 source.opts = {
   data = vim.fn.expand "~" .. ".ssh/Unihan_DictionaryLikeData.txt",
   trigger_characters = { ":" },
-  key_pattern = [=[[:digit:][:digit:]*]=],
+  keyword_pattern = [=[:\d\d*]=],
 }
 
 source.setup = function(opts)
@@ -30,7 +30,7 @@ source.setup = function(opts)
       local src = uv.fs_read(fd, stat.size, nil)
       if src then
         for unicode, goma in string.gmatch(src, "U%+([A-F0-9]+)\tkFourCornerCode\t([%d%.]+)") do
-          print(unicode, goma)
+          -- print(unicode, goma)
           local codepoint = tonumber(unicode, 16)
           local ch = utf8.char(codepoint)
           table.insert(source.ITEMS, {
@@ -58,7 +58,7 @@ source.get_trigger_characters = function()
 end
 
 source.get_keyword_pattern = function()
-  return source.opts.key_pattern
+  return  source.opts.keyword_pattern
 end
 
 source.complete = function(self, params, callback)
