@@ -21,13 +21,26 @@
 ## lazy
 
 ```lua
-{
-  "ousttrue/cmp-unihan",
-  dependencies = { "uga-rosa/utf8.nvim" },
-  opts = {
-    data = vim.fn.expand("~") .. ".ssh/Unihan_DictionaryLikeData.txt",
-    trigger_characters = { ":" },
-    keyword_pattern = [=[:\d\d*]=],
-  }
-},
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "uga-rosa/utf8.nvim",
+      "ousttrue/cmp-unihan",
+    },
+    config = function()
+      local cmp = require "cmp"
+
+      cmp.register_source(
+        "unihan",
+        require("cmp-unihan").new {
+          data = vim.fn.expand "~/.skk/Unihan_DictionaryLikeData.txt",
+          trigger_characters = { ";" },
+          keyword_pattern = [=[;\zs\d\d*]=],
+        }
+      )
+      cmp.setup {
+        sources = {
+          {name = "unihan"},
+        }
+      }
+    end,
 ```

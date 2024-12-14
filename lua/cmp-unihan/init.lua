@@ -1,9 +1,9 @@
 local source = {}
 
 source.opts = {
-  data = vim.fn.expand "~" .. ".ssh/Unihan_DictionaryLikeData.txt",
-  trigger_characters = { ":" },
-  keyword_pattern = [=[:\d\d*]=],
+  data = vim.fn.expand "~/.skk/Unihan_DictionaryLikeData.txt",
+  trigger_characters = { ";" },
+  keyword_pattern = [=[;\zs\d\d*]=],
 }
 
 source.setup = function(opts)
@@ -58,7 +58,7 @@ source.get_trigger_characters = function()
 end
 
 source.get_keyword_pattern = function()
-  return  source.opts.keyword_pattern
+  return source.opts.keyword_pattern
 end
 
 source.complete = function(self, params, callback)
