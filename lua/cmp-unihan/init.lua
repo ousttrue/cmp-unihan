@@ -6,7 +6,7 @@ source.opts = {
   keyword_pattern = [=[;\zs\d\d*]=],
 }
 
-source.setup = function(opts)
+source.new = function(opts)
   local utf8 = require "utf8"
 
   for k, v in pairs(opts) do
@@ -44,9 +44,7 @@ source.setup = function(opts)
       end
     end
   end
-end
 
-source.new = function()
   local self = setmetatable({}, { __index = source })
   self.commit_items = nil
   self.insert_items = nil
